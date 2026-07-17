@@ -15,7 +15,6 @@ import {
   CalendarDays,
   Check,
   ChevronUp,
-  CircleDot,
   ClipboardList,
   Copy,
   ExternalLink,
@@ -226,7 +225,7 @@ type IslandShellProps = {
   onOpenPage: (page: IslandPage) => void;
   onCollapse: () => void;
   onMinimize: () => void;
-  onScreenRecord: () => void;
+  onTuck: () => void;
   onReveal: () => void;
   onPageChange: (page: IslandPage) => void;
   children: ReactNode;
@@ -947,7 +946,7 @@ function IslandShell({
   onOpenPage,
   onCollapse,
   onMinimize,
-  onScreenRecord,
+  onTuck,
   onReveal,
   onPageChange,
   children,
@@ -1008,7 +1007,7 @@ function IslandShell({
           suppressNextClickRef.current = false;
           console.error("Failed to drag island", error);
         });
-      }, 450);
+      }, 150);
     },
     [cancelDragTimer],
   );
@@ -1069,17 +1068,15 @@ function IslandShell({
           onClick={() => onOpenPage("music")}
         />
         <button
-          className="island__record-button"
+          className="island__quiet-button"
           type="button"
-          title="开始或停止屏幕录制"
-          aria-label="开始或停止屏幕录制"
+          title="收起"
+          aria-label="收起岛屿"
           onClick={(event) => {
             event.stopPropagation();
-            onScreenRecord();
+            onTuck();
           }}
-        >
-          <CircleDot size={14} strokeWidth={2.2} />
-        </button>
+        />
       </div>
 
       <div className="island__expanded" aria-hidden={!isExpanded}>
@@ -3563,6 +3560,11 @@ function App() {
     setIsTucked(false);
   }, []);
 
+  const tuckIsland = useCallback(() => {
+    setIslandMode("collapsed");
+    setIsTucked(true);
+  }, [setIslandMode]);
+
   const openIslandPage = useCallback((nextPage: IslandPage) => {
     setPage(nextPage);
     setMode("expanded");
@@ -3597,12 +3599,6 @@ function App() {
   const collapseIsland = useCallback(() => {
     setIslandMode("collapsed");
   }, [setIslandMode]);
-
-  const toggleScreenRecording = useCallback(() => {
-    void invoke("toggle_screen_recording").catch((error) => {
-      console.error("Failed to toggle screen recording", error);
-    });
-  }, []);
 
   const refreshMediaState = useCallback(async () => {
     if (isRefreshingMediaState.current) {
@@ -4520,7 +4516,7 @@ function App() {
         onOpenPage={openIslandPage}
         onCollapse={collapseIsland}
         onMinimize={minimizeIsland}
-        onScreenRecord={toggleScreenRecording}
+        onTuck={tuckIsland}
         onReveal={revealIsland}
         onPageChange={setPage}
       >

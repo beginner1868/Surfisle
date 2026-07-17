@@ -38,7 +38,7 @@ use windows::Win32::{
     UI::{
         Input::KeyboardAndMouse::{
             keybd_event, KEYBD_EVENT_FLAGS, KEYEVENTF_KEYUP, VIRTUAL_KEY, VK_MEDIA_NEXT_TRACK,
-            VK_LWIN, VK_MEDIA_PLAY_PAUSE, VK_MEDIA_PREV_TRACK, VK_MENU,
+            VK_MEDIA_PLAY_PAUSE, VK_MEDIA_PREV_TRACK,
         },
         WindowsAndMessaging::{
             EnumWindows, GetCursorPos, GetWindowRect, GetWindowTextLengthW, GetWindowTextW,
@@ -704,11 +704,6 @@ fn media_next() {
 #[tauri::command]
 fn media_previous() {
     send_media_key(VK_MEDIA_PREV_TRACK);
-}
-
-#[tauri::command]
-fn toggle_screen_recording() {
-    send_key_chord(&[VK_LWIN, VK_MENU, VIRTUAL_KEY(b'R' as u16)]);
 }
 
 async fn read_media_state() -> MediaState {
@@ -1725,18 +1720,6 @@ fn send_media_key(key: VIRTUAL_KEY) {
     }
 }
 
-fn send_key_chord(keys: &[VIRTUAL_KEY]) {
-    unsafe {
-        for key in keys {
-            keybd_event(key.0 as u8, 0, KEYBD_EVENT_FLAGS(0), 0);
-        }
-        thread::sleep(Duration::from_millis(24));
-        for key in keys.iter().rev() {
-            keybd_event(key.0 as u8, 0, KEYEVENTF_KEYUP, 0);
-        }
-    }
-}
-
 fn file_modified_unix_millis(path: &Path) -> Option<i64> {
     let modified = fs::metadata(path).ok()?.modified().ok()?;
     system_time_to_unix_millis(modified)
@@ -2067,7 +2050,6 @@ pub fn run() {
             media_play_pause,
             media_next,
             media_previous,
-            toggle_screen_recording,
             clipboard_history::get_clipboard_history,
             clipboard_history::set_clipboard_history_settings,
             clipboard_history::copy_clipboard_history_item,
