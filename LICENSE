@@ -1,0 +1,223 @@
+Surfisle Source-Available License 1.0
+
+Copyright (c) 2026 ryancy. All rights reserved.
+Author: ryancy
+Author page: https://github.com/beginner1868
+
+This license is a source-available license. It is not an open-source license.
+The Chinese translation is available in LICENSE.zh-CN.md. If the two versions
+conflict, this English version controls to the extent permitted by law.
+
+1. Definitions
+
+"Author" means ryancy, the copyright owner of the original Surfisle code and
+assets.
+
+"Software" means Surfisle, including its source code, object code, official
+executable files, installers, documentation, user-interface assets, icons, and
+any portion of them, except Third-Party Components defined below.
+
+"Official Build" means an executable file or installer released directly by
+the Author through a channel identified by the Author.
+
+"Commercial Use" means any use primarily intended for, directed toward, or
+reasonably connected with commercial advantage, monetary compensation, or
+business activity. It includes internal business use, paid services, resale,
+advertising-supported use, sponsorship, product bundling, customer delivery,
+and use in work performed for an employer or client.
+
+"Distribute" means to provide, publish, transmit, upload, mirror, host, sell,
+resell, sublicense, transfer, share, or otherwise make the Software available
+to another person or entity, whether for payment or free of charge.
+
+"Modify" means to alter, translate, adapt, port, rebrand, customize, patch, or
+create a derivative work from any part of the Software.
+
+2. Acceptance
+
+By downloading, installing, executing, compiling, or otherwise using the
+Software, you accept this license. If you do not accept it, you must not use
+the Software and must delete all copies in your possession or control.
+
+3. Ownership and Reservation of Rights
+
+The Software is licensed, not sold. The Author retains all copyright and other
+intellectual-property rights in the Software. No right is granted except the
+limited rights expressly stated in this license. All other rights are reserved.
+
+Possession of source code does not transfer ownership and does not, by itself,
+grant permission to modify, distribute, or commercially use the Software.
+
+4. Limited Permission for Personal Noncommercial Use
+
+Subject to full compliance with this license, the Author grants a natural
+person a limited, personal, nonexclusive, nontransferable, nonsublicensable,
+revocable license to:
+
+a. view and study the source code for personal learning and research;
+b. download, install, and run an Official Build for personal noncommercial use;
+c. compile an unmodified copy of the source code solely for that person's own
+   personal noncommercial use; and
+d. make a reasonable number of private backup copies that remain under that
+   person's exclusive control.
+
+This permission does not apply to a company, organization, employer, client,
+or other legal entity. Such use requires the Author's prior written permission.
+
+5. No Commercial Use
+
+You must not use the Software for any Commercial Use without a separate written
+commercial license from the Author. Prohibited Commercial Use includes, without
+limitation:
+
+a. selling or reselling the Software or access to it;
+b. charging fees for installation, deployment, support, customization, or use;
+c. including the Software in a paid product, service, subscription, bundle, or
+   commercial device;
+d. using the Software in business operations or to perform work for an employer
+   or client;
+e. monetizing the Software through advertisements, sponsorships, donations tied
+   to access, or other revenue; and
+f. using the Software to promote a commercial product, service, or brand.
+
+6. No Modification or Derivative Works
+
+You must not Modify the Software or create derivative works without the
+Author's prior written permission. This prohibition includes private and public
+modifications, feature changes, translations, ports, patches, rebranding,
+removal of features, replacement of names or artwork, and repackaging.
+
+You must not publish or provide instructions, patches, or automated tools whose
+primary purpose is to produce an unauthorized modified version of the Software.
+
+This clause does not restrict an act that applicable law expressly permits and
+does not allow the parties to prohibit. Any such act must be limited to the
+minimum extent required by that law.
+
+7. Limited Free Redistribution of Official Builds
+
+You may redistribute an Official Build without separate written permission
+only when every condition below is satisfied:
+
+a. recipients can obtain the Official Build entirely free of charge, without
+   any payment, purchase, paid membership, subscription, donation, paid points,
+   paywall, or other exchange of value;
+b. the Official Build is the complete, unmodified file released by the Author;
+c. you do not repackage it, place it inside another installer or archive, bundle
+   it with other software, add advertising software, or change its file name;
+d. the download page clearly identifies "ryancy" as the Author and provides a
+   visible link to https://github.com/beginner1868;
+e. you include this license or provide a clearly visible link to the complete
+   license before download; and
+f. you do not claim or imply that your copy, page, service, or channel is
+   official or endorsed by the Author.
+
+You must not charge for the Official Build or for access to its download. You
+must not sell, resell, sublicense, commercially mirror, or otherwise obtain
+commercial benefit from redistribution of the Official Build.
+
+This limited permission applies only to an unmodified Official Build. It does
+not permit redistribution of source code, privately compiled builds, backups,
+modified builds, unofficial installers, portable packages, app-store packages,
+individual Software files, or derivative works. Those forms may be distributed
+only with the Author's prior written permission.
+
+If the Author places the Software in a public GitHub repository, GitHub's terms
+may permit viewing and in-service forking through GitHub's functionality. Such
+a platform fork grants no permission beyond the minimum rights provided by the
+platform's terms. It does not grant permission to Modify, commercially use,
+release, mirror, or distribute the Software outside those minimum platform
+rights.
+
+8. Attribution and Notices
+
+You must preserve all copyright, authorship, license, source, and attribution
+notices, including the name "ryancy" and the Author page URL. You must not hide,
+remove, alter, or misrepresent them.
+
+You must not claim that you created the Software, that an unofficial build is
+official, or that the Author endorses you or your product.
+
+9. Name, Logo, and Trademarks
+
+This license does not grant any right to use the names "Surfisle" or "ryancy",
+or any related logo, icon, visual identity, domain name, or account identifier,
+except as reasonably necessary to identify the unmodified Software and comply
+with the attribution requirements.
+
+10. Official Builds and Updates
+
+The Author alone decides which builds, releases, repositories, websites, and
+download channels are official. The Author has no obligation to provide source
+code, updates, maintenance, support, compatibility, or continued availability.
+
+An update or new version may be offered under different terms. Continued use
+of an older version remains governed by the terms supplied with that version.
+
+11. Separate Written Permission
+
+Commercial use, modification, redistribution beyond the limited permission in
+Section 7, OEM use, organizational use, and other rights not granted here
+require a separate written agreement signed or otherwise expressly issued by
+the Author.
+
+Requests may be made through https://github.com/beginner1868. A request,
+discussion, payment, donation, or lack of response does not itself grant any
+permission.
+
+12. Third-Party Components
+
+Third-party libraries, frameworks, fonts, icons, tools, and other components
+included with or used by the Software remain governed by their own licenses.
+This license applies only to original material owned by the Author and does not
+replace, restrict, or expand a third party's license.
+
+13. No Patent License
+
+No patent license is granted, whether expressly, by implication, estoppel, or
+otherwise, except to the minimum extent required by applicable law.
+
+14. Termination and Enforcement
+
+Any violation of this license automatically terminates all permissions granted
+to you. Upon termination, you must immediately stop using the Software and
+delete all copies in your possession or control, except copies that applicable
+law requires you to retain.
+
+Termination does not limit the Author's right to seek removal, injunctive
+relief, damages, costs, or any other remedy available under applicable law.
+Only the Author may reinstate terminated permission, and any reinstatement must
+be in writing.
+
+15. Disclaimer of Warranty
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SOFTWARE IS PROVIDED "AS IS" AND
+"AS AVAILABLE", WITHOUT WARRANTY OF ANY KIND, EXPRESS, IMPLIED, OR STATUTORY,
+INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+TITLE, NON-INFRINGEMENT, ACCURACY, SECURITY, OR UNINTERRUPTED OPERATION. YOU
+ASSUME ALL RISK ARISING FROM USE OF THE SOFTWARE.
+
+16. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE AUTHOR WILL NOT BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, CONSEQUENTIAL, OR PUNITIVE
+DAMAGES, OR FOR LOSS OF DATA, PROFITS, REVENUE, BUSINESS, OR GOODWILL, ARISING
+FROM OR RELATED TO THE SOFTWARE OR THIS LICENSE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGES.
+
+17. Mandatory Law, Severability, and No Waiver
+
+Nothing in this license excludes a right or liability that applicable law does
+not allow the parties to exclude. If any provision is held unenforceable, it
+will be enforced to the maximum lawful extent and the remaining provisions will
+remain in effect.
+
+A failure or delay by the Author to enforce a provision is not a waiver. A
+waiver in one instance is not a waiver in any other instance.
+
+18. Entire Agreement
+
+This license and any separate written agreement issued by the Author form the
+entire agreement concerning the rights granted in the Software. A separate
+written agreement controls only to the extent it expressly overrides this
+license.
