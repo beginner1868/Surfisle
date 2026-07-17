@@ -270,15 +270,16 @@ input {
   margin-left: auto;
 }
 
-.island__quiet-button {
-  width: 16px;
-  height: 16px;
+.island__record-button {
+  width: 28px;
+  height: 28px;
   display: inline-grid;
   place-items: center;
   flex: 0 0 auto;
   margin-left: 0;
   padding: 0;
-  background: rgba(186, 186, 186, 0.38);
+  color: #ff6b78;
+  background: rgba(255, 107, 120, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
   outline: none;
@@ -292,14 +293,15 @@ input {
     transform 140ms ease;
 }
 
-.island__quiet-button:hover {
-  background: rgba(210, 210, 210, 0.58);
-  border-color: rgba(255, 255, 255, 0.28);
+.island__record-button:hover {
+  color: #ff8994;
+  background: rgba(255, 107, 120, 0.18);
+  border-color: rgba(255, 137, 148, 0.32);
   transform: scale(1.08);
 }
 
-.island__quiet-button:focus-visible {
-  outline: 2px solid rgba(143, 216, 255, 0.72);
+.island__record-button:focus-visible {
+  outline: 2px solid rgba(255, 137, 148, 0.78);
   outline-offset: 4px;
 }
 
@@ -3644,7 +3646,7 @@ input {
   .island__expanded,
   .dot-button,
   .icon-button,
-  .island__quiet-button,
+  .island__record-button,
   .music-player,
   .music-wave-button,
   .music-control-button,

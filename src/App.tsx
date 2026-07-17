@@ -15,6 +15,7 @@ import {
   CalendarDays,
   Check,
   ChevronUp,
+  CircleDot,
   ClipboardList,
   Copy,
   ExternalLink,
@@ -225,7 +226,7 @@ type IslandShellProps = {
   onOpenPage: (page: IslandPage) => void;
   onCollapse: () => void;
   onMinimize: () => void;
-  onTuck: () => void;
+  onScreenRecord: () => void;
   onReveal: () => void;
   onPageChange: (page: IslandPage) => void;
   children: ReactNode;
@@ -946,11 +947,14 @@ function IslandShell({
   onOpenPage,
   onCollapse,
   onMinimize,
-  onTuck,
+  onScreenRecord,
   onReveal,
   onPageChange,
   children,
 }: IslandShellProps) {
+  const dragTimerRef = useRef<number | null>(null);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+  const suppressNextClickRef = useRef(false);
   const isExpanded = mode === "expanded";
   const isMusicPlaying =
     mediaState.playbackStatus === "playing" ||
@@ -972,15 +976,72 @@ function IslandShell({
     ? `正在专注：${activeTaskTitle}`
     : "Surfisle";
 
+  const cancelDragTimer = useCallback(() => {
+    if (dragTimerRef.current !== null) {
+      window.clearTimeout(dragTimerRef.current);
+      dragTimerRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => cancelDragTimer, [cancelDragTimer]);
+
+  const handleDragPointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLElement>) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      const target = event.target;
+      if (
+        target instanceof Element &&
+        target.closest("button, input, textarea, select, a, [data-no-island-drag]")
+      ) {
+        return;
+      }
+
+      cancelDragTimer();
+      dragStartRef.current = { x: event.clientX, y: event.clientY };
+      dragTimerRef.current = window.setTimeout(() => {
+        dragTimerRef.current = null;
+        suppressNextClickRef.current = true;
+        void invoke("begin_island_drag").catch((error) => {
+          suppressNextClickRef.current = false;
+          console.error("Failed to drag island", error);
+        });
+      }, 450);
+    },
+    [cancelDragTimer],
+  );
+
+  const handleDragPointerMove = useCallback(
+    (event: ReactPointerEvent<HTMLElement>) => {
+      const deltaX = event.clientX - dragStartRef.current.x;
+      const deltaY = event.clientY - dragStartRef.current.y;
+      if (Math.hypot(deltaX, deltaY) > 6) {
+        cancelDragTimer();
+      }
+    },
+    [cancelDragTimer],
+  );
+
   return (
     <section
       className={className}
       aria-label={collapsedLabel}
-      onClick={() => {
+      onClick={(event) => {
+        if (suppressNextClickRef.current) {
+          suppressNextClickRef.current = false;
+          event.preventDefault();
+          return;
+        }
         if (!isExpanded) {
           onOpenPage(page);
         }
       }}
+      onPointerDown={handleDragPointerDown}
+      onPointerMove={handleDragPointerMove}
+      onPointerUp={cancelDragTimer}
+      onPointerCancel={cancelDragTimer}
       onMouseEnter={() => {
         if (isTucked) {
           onReveal();
@@ -1008,15 +1069,17 @@ function IslandShell({
           onClick={() => onOpenPage("music")}
         />
         <button
-          className="island__quiet-button"
+          className="island__record-button"
           type="button"
-          title="收起"
-          aria-label="收起岛屿"
+          title="开始或停止屏幕录制"
+          aria-label="开始或停止屏幕录制"
           onClick={(event) => {
             event.stopPropagation();
-            onTuck();
+            onScreenRecord();
           }}
-        />
+        >
+          <CircleDot size={14} strokeWidth={2.2} />
+        </button>
       </div>
 
       <div className="island__expanded" aria-hidden={!isExpanded}>
@@ -3496,11 +3559,6 @@ function App() {
     setIsTucked(false);
   }, []);
 
-  const tuckIsland = useCallback(() => {
-    setIslandMode("collapsed");
-    setIsTucked(true);
-  }, [setIslandMode]);
-
   const revealIsland = useCallback(() => {
     setIsTucked(false);
   }, []);
@@ -3539,6 +3597,12 @@ function App() {
   const collapseIsland = useCallback(() => {
     setIslandMode("collapsed");
   }, [setIslandMode]);
+
+  const toggleScreenRecording = useCallback(() => {
+    void invoke("toggle_screen_recording").catch((error) => {
+      console.error("Failed to toggle screen recording", error);
+    });
+  }, []);
 
   const refreshMediaState = useCallback(async () => {
     if (isRefreshingMediaState.current) {
@@ -4456,7 +4520,7 @@ function App() {
         onOpenPage={openIslandPage}
         onCollapse={collapseIsland}
         onMinimize={minimizeIsland}
-        onTuck={tuckIsland}
+        onScreenRecord={toggleScreenRecording}
         onReveal={revealIsland}
         onPageChange={setPage}
       >
