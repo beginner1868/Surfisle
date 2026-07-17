@@ -2789,10 +2789,8 @@ function ClipboardHistoryPanel({
   const [query, setQuery] = useState("");
   const [clipboardView, setClipboardView] = useState<"all" | "favorites">("all");
   const [copiedItemId, setCopiedItemId] = useState<string | null>(null);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [isConfirmingClear, setIsConfirmingClear] = useState(false);
   const copiedResetRef = useRef<number | null>(null);
-  const confirmDeleteResetRef = useRef<number | null>(null);
   const confirmClearResetRef = useRef<number | null>(null);
   const itemElementsRef = useRef<Map<string, HTMLElement>>(new Map());
   const itemPositionsRef = useRef<Map<string, DOMRect>>(new Map());
@@ -2823,10 +2821,6 @@ function ClipboardHistoryPanel({
     () => () => {
       if (copiedResetRef.current !== null) {
         window.clearTimeout(copiedResetRef.current);
-      }
-
-      if (confirmDeleteResetRef.current !== null) {
-        window.clearTimeout(confirmDeleteResetRef.current);
       }
 
       if (confirmClearResetRef.current !== null) {
@@ -2880,29 +2874,6 @@ function ClipboardHistoryPanel({
   }, [filteredItems]);
 
   useEffect(() => {
-    if (confirmDeleteResetRef.current !== null) {
-      window.clearTimeout(confirmDeleteResetRef.current);
-      confirmDeleteResetRef.current = null;
-    }
-
-    if (!confirmDeleteId) {
-      return;
-    }
-
-    confirmDeleteResetRef.current = window.setTimeout(() => {
-      setConfirmDeleteId(null);
-      confirmDeleteResetRef.current = null;
-    }, 3000);
-
-    return () => {
-      if (confirmDeleteResetRef.current !== null) {
-        window.clearTimeout(confirmDeleteResetRef.current);
-        confirmDeleteResetRef.current = null;
-      }
-    };
-  }, [confirmDeleteId]);
-
-  useEffect(() => {
     if (confirmClearResetRef.current !== null) {
       window.clearTimeout(confirmClearResetRef.current);
       confirmClearResetRef.current = null;
@@ -2926,7 +2897,7 @@ function ClipboardHistoryPanel({
   }, [isConfirmingClear]);
 
   useEffect(() => {
-    if (!confirmDeleteId && !isConfirmingClear) {
+    if (!isConfirmingClear) {
       return;
     }
 
@@ -2943,7 +2914,6 @@ function ClipboardHistoryPanel({
         return;
       }
 
-      setConfirmDeleteId(null);
       setIsConfirmingClear(false);
     };
 
@@ -2952,20 +2922,13 @@ function ClipboardHistoryPanel({
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown, true);
     };
-  }, [confirmDeleteId, isConfirmingClear]);
+  }, [isConfirmingClear]);
 
   useEffect(() => {
-    if (
-      confirmDeleteId &&
-      !snapshot.items.some((item) => item.id === confirmDeleteId)
-    ) {
-      setConfirmDeleteId(null);
-    }
-
     if (snapshot.items.length === 0) {
       setIsConfirmingClear(false);
     }
-  }, [confirmDeleteId, snapshot.items]);
+  }, [snapshot.items]);
 
   const showCopiedState = useCallback((id: string) => {
     setCopiedItemId(id);
@@ -2993,7 +2956,6 @@ function ClipboardHistoryPanel({
 
   const handleToggleFavorite = useCallback(
     (id: string) => {
-      setConfirmDeleteId(null);
       void Promise.resolve(onToggleFavorite(id));
     },
     [onToggleFavorite],
@@ -3001,28 +2963,19 @@ function ClipboardHistoryPanel({
 
   const handleDeleteItem = useCallback(
     (id: string) => {
-      if (confirmDeleteId !== id) {
-        setIsConfirmingClear(false);
-        setConfirmDeleteId(id);
-        return;
-      }
-
-      setConfirmDeleteId(null);
       setIsConfirmingClear(false);
       void Promise.resolve(onDeleteItem(id));
     },
-    [confirmDeleteId, onDeleteItem],
+    [onDeleteItem],
   );
 
   const handleClear = useCallback(() => {
     if (!isConfirmingClear) {
-      setConfirmDeleteId(null);
       setIsConfirmingClear(true);
       return;
     }
 
     setIsConfirmingClear(false);
-    setConfirmDeleteId(null);
     void Promise.resolve(onClear());
   }, [isConfirmingClear, onClear]);
 
@@ -3169,26 +3122,16 @@ function ClipboardHistoryPanel({
                   />
                 </button>
                 <button
-                  className={[
-                    "clipboard-delete-button",
-                    confirmDeleteId === item.id ? "clipboard-delete-button--confirming" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
+                  className="clipboard-delete-button"
                   type="button"
-                  title={confirmDeleteId === item.id ? "确认删除" : "删除"}
+                  title="删除"
                   aria-label="删除剪贴记录"
                   onClick={(event) => {
                     event.stopPropagation();
                     handleDeleteItem(item.id);
                   }}
-                  data-clipboard-confirm-control="true"
                 >
-                  {confirmDeleteId === item.id ? (
-                    <Check className="save-check-icon" size={14} strokeWidth={2.7} />
-                  ) : (
-                    <Trash2 size={14} strokeWidth={2.3} />
-                  )}
+                  <Trash2 size={14} strokeWidth={2.3} />
                 </button>
                 <button
                   className={[

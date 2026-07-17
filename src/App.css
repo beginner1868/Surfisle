@@ -1227,11 +1227,6 @@ input {
   box-shadow: 0 0 0 4px rgba(152, 212, 187, 0.22);
 }
 
-.clipboard-delete-button--confirming {
-  color: #ffffff !important;
-  background: #c75065 !important;
-}
-
 .todo-notebook {
   --todo-ink: #20221f;
   --todo-muted: rgba(32, 34, 31, 0.5);
